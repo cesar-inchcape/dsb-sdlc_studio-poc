@@ -1,0 +1,34 @@
+Guidelines AI
+
+1. Testing Strategy Context
+A comprehensive testing coverage is required for every developed module. This document establishes the mandatory guidelines and standards for implementing functional testing across all application modules related to the User Stories. All reference functional documentation is located in /acceptance_criteria/Users and Roles/
+
+2. Test Case Structure
+To maintain consistency with the test repository, follow this format:
+Test Case ID: Unique identifier.
+Test Case Title: Clear, concise, and starting with an action verb (e.g., Verify that..., Validate behavior when...).
+Preconditions: Required prior state of the system and necessary data.
+Execution Steps: Numbered, atomic (one step per line), and descriptive. Important: Follow the Gherkin structure (Given..., When..., Then...).
+Expected Result: The correct behavior of the system according to the Acceptance Criteria.
+
+3. Required Test Design Techniques
+The development of test cases must strictly align with the acceptance_criteria definitions. 
+it is mandatory to include all acceptance criteria listed in the User Stories.
+Before proceeding with test coding, it is mandatory to review the reference material located in: /acceptance_criteria/Users and Roles/
+
+Create Happy Path test scenarios: Standard flow of the User Story.
+Create Alternative Paths and Error Flows test scenarios for each User Story.
+Create Boundary Value Analysis (BVA) test scenarios for each User Story.
+Create Negative test scenarios for each User Story: Intentionally attempting to break the flow (special characters, mandatory empty fields, incorrect formats, wrong permissions, lack of user permissions, other scenarios to cover all acceptance criteria for each User Story).
+Create Security test scenarios for each User Story.
+Create API validation test scenarios for each User Story (if applicable according to the User Story)
+Create Performance test scenarios for each User Story (if applicable according to the User Story).
+
+Before proceeding with test coding, it is mandatory to review the reference material located in: /application_design/Management/Users_module/figma_users and /application_design/Management/Advisors_module/figma_advisors
+Create UI (User Interface) test scenarios .
+Create Usability test scenarios.
+
+4. Business Rules and Language Constraints
+Zero Assumptions: If the User Story does not specify what happens in a particular error scenario, it must be flagged at the end in a "Business Questions/Doubts" section.
+Independence: Each test case must be independent and self-contained (it must not depend on a previous test case leaving the session open, unless it is an explicit end-to-end test flow).
+Clarity: Do not use ambiguous language such as "enter valid data". It must specify "enter an email with the correct format (example@domain.com)".

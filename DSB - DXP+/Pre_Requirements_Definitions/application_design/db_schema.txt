@@ -1,0 +1,381 @@
+Project BookingSystem {
+  database_type: "SQLServer"
+}
+
+Table Countries {
+  Id uniqueidentifier [pk]
+  Code varchar(5) [unique]
+  Name varchar(100)
+  Timezone varchar(50)
+  CreatedAt datetime2
+}
+
+Table Cities {
+  Id uniqueidentifier [pk]
+  CountryId uniqueidentifier
+  Name varchar(100)
+  CreatedAt datetime2
+}
+
+Table DocumentTypes {
+  Id uniqueidentifier [pk]
+  Name varchar(50)
+  IsActive bit
+  CreatedAt datetime2
+}
+
+Table Customers {
+  Id uniqueidentifier [pk]
+
+  DocumentTypeId uniqueidentifier
+  CityId uniqueidentifier
+
+  FirstName varchar(100)
+  LastName varchar(100)
+
+  DocumentNumber varchar(50)
+
+  Email varchar(150)
+  Phone varchar(30)
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table VehicleData {
+  Id uniqueidentifier [pk]
+
+  CustomerId uniqueidentifier
+
+  Vin varchar(100)
+  Plate varchar(20)
+
+  Brand varchar(100)
+  Model varchar(100)
+  Version varchar(100)
+
+  Year int
+  Mileage int
+
+  Color varchar(50)
+
+  CreatedAt datetime2
+}
+
+Table ClientCompany {
+  Id uniqueidentifier [pk]
+
+  Name varchar(150)
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table Retail {
+  Id uniqueidentifier [pk]
+
+  ClientId uniqueidentifier
+
+  Name varchar(150)
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table Workshops {
+  Id uniqueidentifier [pk]
+
+  CountryId uniqueidentifier
+  CityId uniqueidentifier
+  RetailId uniqueidentifier
+
+  Name varchar(150)
+  Address varchar(250)
+  Street varchar(250)
+
+  Phone varchar(30)
+  Email varchar(150)
+  Postcode varchar(250)
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table Advisors {
+  Id uniqueidentifier [pk]
+
+  WorkshopId uniqueidentifier
+
+  FirstName varchar(100)
+  LastName varchar(100)
+
+  Email varchar(150)
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table WorkshopSchedules {
+  Id uniqueidentifier [pk]
+
+  WorkshopId uniqueidentifier
+
+  DayOfWeek int
+
+  StartTime time
+  EndTime time
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table AdvisorSchedules {
+  Id uniqueidentifier [pk]
+
+  AdvisorId uniqueidentifier
+
+  DayOfWeek int
+
+  StartTime time
+  EndTime time
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table WorkshopBlocks {
+  Id uniqueidentifier [pk]
+
+  WorkshopId uniqueidentifier
+
+  StartDateTime datetime2
+  EndDateTime datetime2
+
+  BlockType varchar(50)
+
+  Reason varchar(250)
+
+  IsFullDay bit
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table AdvisorBlocks {
+  Id uniqueidentifier [pk]
+
+  AdvisorId uniqueidentifier
+
+  StartDateTime datetime2
+  EndDateTime datetime2
+
+  BlockType varchar(50)
+
+  Reason varchar(250)
+
+  IsFullDay bit
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table ServiceTypes {
+  Id uniqueidentifier [pk]
+
+  Name varchar(100)
+
+  DurationMinutes int
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table Brand {
+  Id uniqueidentifier [pk]
+
+  Name varchar(100)
+
+  BusinessId varchar(100)
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table WorkshopBrand {
+  Id uniqueidentifier [pk]
+
+  WorkshopId uniqueidentifier
+  BrandId uniqueidentifier
+  ServiceTypeId uniqueidentifier
+
+  SalesForceCode varchar(100)
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table Bookings {
+  Id uniqueidentifier [pk]
+
+  CustomerId uniqueidentifier
+  VehicleId uniqueidentifier
+
+  WorkshopId uniqueidentifier
+  AdvisorId uniqueidentifier
+
+  WorkshopBrandId uniqueidentifier
+
+  StartTime datetime2
+  EndTime datetime2
+
+  Status varchar(50)
+
+  Notes varchar(500)
+
+  CreatedAt datetime2
+}
+
+Table AvailabilitySlots {
+  Id uniqueidentifier [pk]
+
+  WorkshopId uniqueidentifier
+  AdvisorId uniqueidentifier
+
+  StartTime datetime2
+  EndTime datetime2
+
+  IsAvailable bit
+
+  CreatedAt datetime2
+}
+
+Table Users {
+  Id uniqueidentifier [pk]
+
+  CountryId uniqueidentifier
+  AdvisorId uniqueidentifier
+
+  Email varchar(150)
+
+  PasswordHash varchar(500)
+
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table Roles {
+  Id uniqueidentifier [pk]
+
+  Name varchar(100)
+  IsActive bit
+
+  CreatedAt datetime2
+}
+
+Table Permissions {
+  Id uniqueidentifier [pk]
+
+  Name varchar(150)
+
+  CreatedAt datetime2
+}
+
+Table UserRoles {
+  UserId uniqueidentifier
+  RoleId uniqueidentifier
+
+  CreatedAt datetime2
+}
+
+Table RolePermissions {
+  RoleId uniqueidentifier
+  PermissionId uniqueidentifier
+
+  CreatedAt datetime2
+}
+
+Table BookingReports {
+  Id uniqueidentifier [pk]
+
+  CountryId uniqueidentifier
+  WorkshopId uniqueidentifier
+
+  TotalBookings int
+  TotalCancelled int
+  TotalCompleted int
+
+  ReportDate date
+
+  CreatedAt datetime2
+}
+
+Table Logs {
+  Id uniqueidentifier [pk]
+
+  BookingId uniqueidentifier
+
+  Payload text
+  Response text
+
+  Retries int
+
+  CreatedAt datetime2
+}
+
+Ref: Cities.CountryId > Countries.Id
+
+Ref: Customers.DocumentTypeId > DocumentTypes.Id
+Ref: Customers.CityId > Cities.Id
+
+Ref: VehicleData.CustomerId > Customers.Id
+
+Ref: Retail.ClientId > ClientCompany.Id
+
+Ref: Workshops.CountryId > Countries.Id
+Ref: Workshops.CityId > Cities.Id
+Ref: Workshops.RetailId > Retail.Id
+
+Ref: Advisors.WorkshopId > Workshops.Id
+
+Ref: WorkshopSchedules.WorkshopId > Workshops.Id
+Ref: AdvisorSchedules.AdvisorId > Advisors.Id
+
+Ref: WorkshopBlocks.WorkshopId > Workshops.Id
+Ref: AdvisorBlocks.AdvisorId > Advisors.Id
+
+Ref: WorkshopBrand.WorkshopId > Workshops.Id
+Ref: WorkshopBrand.BrandId > Brand.Id
+Ref: WorkshopBrand.ServiceTypeId > ServiceTypes.Id
+
+Ref: Bookings.CustomerId > Customers.Id
+Ref: Bookings.VehicleId > VehicleData.Id
+
+Ref: Bookings.WorkshopId > Workshops.Id
+Ref: Bookings.AdvisorId > Advisors.Id
+
+Ref: Bookings.WorkshopBrandId > WorkshopBrand.Id
+
+Ref: AvailabilitySlots.WorkshopId > Workshops.Id
+Ref: AvailabilitySlots.AdvisorId > Advisors.Id
+
+Ref: Users.CountryId > Countries.Id
+Ref: Users.AdvisorId > Advisors.Id
+
+Ref: UserRoles.UserId > Users.Id
+Ref: UserRoles.RoleId > Roles.Id
+
+Ref: RolePermissions.RoleId > Roles.Id
+Ref: RolePermissions.PermissionId > Permissions.Id
+
+Ref: Logs.BookingId > Bookings.Id 

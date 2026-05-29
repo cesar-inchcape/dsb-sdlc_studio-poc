@@ -1,0 +1,27 @@
+# .NET
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.user
+*.suo
+.vs/
+appsettings.Development.json
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.vscode
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+TestResults/
+.coverage
+
