@@ -1,0 +1,28 @@
+# This file defines code ownership for the DSB-PoC repository
+# GitHub handles must have write access to the repository
+
+# Default owner for all files
+* @cesar-inchcape
+
+# API Source Code
+DSB\ -\ DXP+/Login.Api/** @cesar-inchcape
+
+# Tests
+DSB\ -\ DXP+/Login.Api.Tests/** @cesar-inchcape
+
+# Configuration and Setup
+DSB\ -\ DXP+/*.sln @cesar-inchcape
+DSB\ -\ DXP+/*.csproj @cesar-inchcape
+DSB\ -\ DXP+/appsettings*.json @cesar-inchcape
+
+# Documentation
+*.md @cesar-inchcape
+docs/** @cesar-inchcape
+
+# GitHub Configuration
+.github/** @cesar-inchcape
+.gitignore @cesar-inchcape
+
+# SDLC and Requirements
+DSB\ -\ DXP+/sdlc-studio/** @cesar-inchcape
+DSB\ -\ DXP+/Pre_Requirements_Definitions/** @cesar-inchcape
